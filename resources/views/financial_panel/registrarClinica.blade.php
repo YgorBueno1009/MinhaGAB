@@ -1,0 +1,35 @@
+@extends('layouts.financial')
+@section('content')
+<div class="dash_page">
+    <h1 class="page_title"><i class="fa-solid fa-building-columns"></i> Registrar Clinica</h1>
+
+    <form class="page_form" method="post" action="{{route('cadastrar-clinica')}}">
+        @csrf
+        <div class="input_box">
+            <label for="">Nome:</label>
+            <input type="text" name="name" class="page_input" placeholder="João Silva" required>
+        </div>
+
+        <div class="input_box">
+            <label for="">Cnpj:</label>
+            <input type="text" name="cpf_cnpj" class="page_input" placeholder="00.000.000/0000-00" required>
+        </div>
+
+        <div class="input_box">
+            <label for="">Email:</label>
+            <input type="text" name="email" class="page_input" placeholder="joao.silva@gmail.com" required>
+        </div>
+
+        <div class="input_box">
+            <label for="">Resposta:</label>
+            <input type="password" name="password" class="page_input" placeholder="******" required>
+        </div>
+
+        <input type="hidden" name="role" value="clinic">
+
+        <div class="input_box">
+            <input type="submit" value="Registrar">
+        </div>
+    </form>
+</div>
+@endsection
