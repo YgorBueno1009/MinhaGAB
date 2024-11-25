@@ -46,7 +46,7 @@
             <input type="password" name="password" id="password" placeholder="************">
           </div>
           <div class="input_single">
-            <input type="submit" value="Entrar">
+            <input type="submit" value="Criar">
           </div>
           <div class="link_box">
             <a href="{{route('login-page')}}">Já tenho uma conta</a>

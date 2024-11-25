@@ -21,7 +21,7 @@
         </div>
 
         <div class="input_box">
-            <label for="">Resposta:</label>
+            <label for="">Senha:</label>
             <input type="password" name="password" class="page_input" placeholder="******" required>
         </div>
 

@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('gabs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("patient_id");
-            $table->unsignedBigInteger("clinic_id");
-            $table->foreign('patient_id')->references('id')->on('users')->onUpdate('cascade');
-            $table->foreign('clinic_id')->references('id')->on('users')->onUpdate('cascade');
-            $table->string("path");
-            $table->enum("status", ["pendente", "emitida", "erro"]);
+            $table->unsignedBigInteger("request_id");
+            $table->foreign('request_id')->references('id')->on('gabs_requests')->onUpdate('cascade');          
+            $table->binary("path")->nullable();
+            $table->text("message")->nulable();
+            $table->enum("status", ["pendente", "emitida", "negada"]);
             $table->timestamps();
 
         });

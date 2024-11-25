@@ -24,7 +24,7 @@ class UserFactory extends Factory
         'phone_number' => fake()->unique()->phoneNumber(),
         'cpf_cnpj' => fake()->unique()->numerify('###.###.###-##'), // Gera CPF fictício
         'password' => bcrypt('0000'), // Senha fictícia para exemplo
-        'role' => "patient",
+        'role' => $this->faker->randomElement(['patient', 'clinic', 'financial'])
     ];
     }
 

@@ -4,26 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Gab extends Model
 {
     use HasFactory;
 
+    protected $table = "gabs";
+
     protected $fillable = [
-        'patient_id',
-        'clinic_id',
+        'request_id',
         'path',
+        'message',
         'status',
     ];
 
-    public function patient_id(): HasOne
+    public function gabRequest(): BelongsTo
     {
-        return $this->hasOne(User::class);
-    }
-
-    public function clinic_id(): HasOne
-    {
-        return $this->hasOne(User::class);
+        return $this->BelongsTo(GabsRequest::class, 'request_id');
     }
 }

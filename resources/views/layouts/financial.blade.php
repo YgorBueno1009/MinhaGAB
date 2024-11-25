@@ -14,9 +14,9 @@
         </header>
         <main class="sidebar_blocks">
             <ul>
-                <h3><i class="fa-solid fa-building-columns"></i> GAB's</h3>
-                <li><a href="{{route('registrar-gab')}}">Registrar GAB</a></li>
-                <li><a href="{{route('gerenciar-gab')}}">Gerenciar GABs'</a></li>
+                <h3><i class="fa-solid fa-building-columns"></i> Requisições</h3>
+                <li><a href="{{route('registrar-requisicao')}}">Cadastrar Requesição</a></li>
+                <li><a href="{{route('gerenciar-requisicao')}}">Gerenciar Requisições e GABs</a></li>
                 <h3><i class="fa-solid fa-building-columns"></i> Clínicas</h3>
                 <li><a href="{{route('registrar-clinica')}}">Registrar Clínica</a></li>
                 <li><a href="{{route('gerenciar-clinica')}}">Gerenciar Clínicas'</a></li>

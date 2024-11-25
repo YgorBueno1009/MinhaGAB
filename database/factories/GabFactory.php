@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\GabsRequest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +18,10 @@ class GabFactory extends Factory
     public function definition(): array
     {
         return [
-            'patient_id' => User::inRandomOrder()->first()->id,  // Seleciona um ID aleatório da tabela users
-            'clinic_id' => User::inRandomOrder()->first()->id,
-            'path' => $this->faker->filePath(), // Gera um caminho de arquivo aleatório
-            'status' => $this->faker->randomElement(['pendente', 'emitida', 'erro']), // Status aleatório
+            'request_id' => GabsRequest::factory(), // Gera ou associa um GabsRequest existente
+            'path' => null, // Simula um caminho binário ou null
+            'message' => $this->faker->optional()->sentence(10), // Mensagem opcional com até 10 palavras
+            'status' => 'pendente', // Define o status como sempre "pendente"
             'created_at' => now(),
             'updated_at' => now(),
         ];

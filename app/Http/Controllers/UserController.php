@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
@@ -54,11 +53,17 @@ class UserController extends Controller
             return redirect()->back()->with('error','CPF ou senha inválidos');
         }
 
-        if($data['role'] != 'financial'){
-            return response()->redirectTo('/');
-        }else{
+        if($data['role'] == 'financial'){
             Auth::login($user);
             return redirect()->route('financial');
+        }else if($data['role'] == 'patient'){
+            Auth::login($user);
+            return redirect()->route('patient-page');
+        }else if($data['role'] == 'clinic'){
+            Auth::login($user);
+            return redirect()->route('clinic-page');
+        }else{
+            return response()->redirectTo('/');
         }
     }
 
