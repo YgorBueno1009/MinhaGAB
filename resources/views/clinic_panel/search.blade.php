@@ -9,20 +9,27 @@
 </head>
 <body>
     <header class="main_header" style="width: 100%;">
-        <h1>Painel do paciente</h1>
+        <h1>Painel da Clínica</h1>
         <div class="buttons_box">
             <a href="{{route('logout')}}"><i class="fa-solid fa-right-from-bracket" title="logout"></i></a>
         </div>
+
     </header>
 
     <section class="gabs">
-        <h1 class="page_title" style="color: #444;margin:15px 0;padding: 10px;">GABs de {{auth()->user()->name}}</h1>
+        <h1 class="page_title" style="color: #444;margin:15px 0;padding: 10px;">GABs da Clńica: {{auth()->user()->name}}</h1>
+        <form method="GET" action="{{route('clinic-search-page')}}">
+            <a href="{{route('clinic-page')}}">Voltar</a>
+            <input type="text" name="query" placeholder="Digite sua busca" required>
+            <button type="submit">Buscar</button>
+        </form>
         <table class="dash_table">
         <thead class="dash_table_header">
             <tr class="">
                 <th>ID</th>
+                <th>Data Emissão</th>
                 <th>Status</th>
-                <th>Clínica</th>
+                <th>Paciente</th>
                 <th>Mensagem</th>
                 <th>Download</th>
             </tr>
@@ -33,6 +40,7 @@
             @foreach ($gabs[$req->id] as $gab) <!-- Itera sobre os gabs relacionados -->
                 <tr class="dash_table_column">
                     <td>{{ $gab['id'] }}</td>
+                    <td>{{ $gab['updated_at']->format("d/m/Y") }}</td>
                     @if ($gab['status'] == 'pendente')
                         <td class="tipo_alerta">{{ strtoupper($gab->status) }}</td>
                     @elseif ($gab['status'] == 'emitida')
@@ -41,7 +49,7 @@
                         <td class="tipo_saida">{{ strtoupper($gab->status) }}</td>
                     @endif
                     <!-- Obtendo o nome da clínica usando o clinic_id do request atual -->
-                    <td>{{ $clinics[$req->clinic_id]->name ?? 'Clinica Indefinida' }}</td>
+                    <td>{{ $clinics[$req->patient_id]->name ?? 'Paciente Indefinida' }}</td>
                     @if ($gab['status'] == 'negada')
                         <td>{{ $gab['message'] }}</td>
                     @else

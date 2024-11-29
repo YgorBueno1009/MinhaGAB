@@ -64,3 +64,4 @@ Route::get('/download_pdf/{id}', [GabController::class, 'download'])->name("down
 
 // Clinica
 Route::get('/clinic', [ClinicController::class, 'clinicPage'])->name("clinic-page");
+Route::get('/clinic/search', [ClinicController::class, 'clinicPageSearcher'])->name("clinic-search-page");
