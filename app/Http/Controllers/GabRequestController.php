@@ -9,19 +9,21 @@ use Illuminate\Http\Request;
 
 class GabRequestController extends Controller
 {
-    public function renderPanel() {
-        $requests = GabsRequest::all();
+    public function renderPanel()
+    {
+        $requests = GabsRequest::orderBy("created_at", "desc")->get();
         $patients = User::where('role', 'patient')->get()->keyBy('id');
-        $clinics = User::where('role', 'clinic')->get()->keyBy('id');   
-    
+        $clinics = User::where('role', 'clinic')->get()->keyBy('id');
+
         return view('financial_panel.gerenciarRequisicoes', [
             'requests' => $requests,
             'patients' => $patients,
             'clinics' => $clinics
         ]);
     }
-    
-    public function registerReqPage(){
+
+    public function registerReqPage()
+    {
         $clinicsList = User::where('role', 'clinic')->get();
         $patientsLists = User::where('role', 'patient')->get();
 
@@ -31,34 +33,65 @@ class GabRequestController extends Controller
         ]);
     }
 
-    public function registerReq(Request $request){
+    public function registerReq(Request $request)
+    {
         $data = $request->validate([
-            'clinic_id'   => 'required|numeric',
-            'patient_id'  => 'required|numeric',
+            'clinic'   => 'required|string',
+            'patient'  => 'required|string',
             'description' => 'required|string',
             'gab_quant'   => 'required|numeric',
         ]);
 
-        
+        $patient = User::where("name", $data['patient'])->first();
+        $clinic = User::where("name", $data['clinic'])->first();
+
         $request = GabsRequest::create([
-            'clinic_id'   => $data['clinic_id'],
-            'patient_id'  => $data['patient_id'],
+            'clinic_id'   => $clinic->id,
+            'patient_id'  => $patient->id,
             'description' => $data['description'],
             'gab_quant'   => $data['gab_quant'],
         ]);
 
-        for ($i = 0; $i < $data['gab_quant']; $i++) { 
+        for ($i = 0; $i < $data['gab_quant']; $i++) {
             $gab = Gab::create([
                 'request_id' => $request->id,
                 'path' => null,
-                'message'=> '',
+                'message' => '',
                 'status' => 'pendente'
             ]);
         }
-        
 
-        if($request){
+
+        if ($request) {
             return redirect()->back();
         }
+    }
+
+    public function patientSearcher(Request $request)
+    {
+        $name = $request['query'];
+
+        // Busca o paciente pelo nome ou CPF
+        $patient = User::where("name", 'LIKE', "%{$name}%")
+            ->orWhere("cpf_cnpj", 'LIKE', "%{$name}%")
+            ->first();
+
+        // Verifica se um paciente foi encontrado
+        if (!$patient) {
+            return redirect()->back()->with('error', 'Paciente não encontrado.');
+        }
+
+        // Busca as requisições do paciente na clínica do usuário autenticado
+        $requests = GabsRequest::where('patient_id', $patient->id)->get();
+
+        // Busca todas as clínicas e pacientes
+        $clinics = User::where("role", "clinic")->get()->keyBy('id');
+        $patients = User::where("role", "patient")->get()->keyBy('id');
+
+        return view('financial_panel.procurarRequisicoes', [
+            'requests' => $requests,
+            'clinics' => $clinics,
+            'patients' => $patients,
+        ]);
     }
 }

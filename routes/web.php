@@ -40,12 +40,15 @@ Route::get('/financial', [FinancialController::class, "index"])->name('financial
 Route::get('/registrar-clinica', [FinancialController::class, "reg_clin_page"])->name("registrar-clinica");
 Route::post('/casdastrar-clinica', [FinancialController::class, "registerClinic"])->name("cadastrar-clinica");
 Route::get('/gerenciar-clinica', [FinancialController::class, 'gerenciarClinicaPage'])->name("gerenciar-clinica");
+Route::get("/edit-user/{id}", [UserController::class, "editUserPage"])->name("edit-user-page");
+Route::post("/edit-user/{id}", [UserController::class, "editUser"])->name("edit-user");
 
 // Gabs Requests
 Route::get('/registrar-requisicao', [GabRequestController::class, 'registerReqPage'])->name("registrar-requisicao");
 Route::post('/registrar-requisicao', [GabRequestController::class, 'registerReq'])->name("cadastrar-requisicao");
 
 Route::get('/gerenciar-requisicao', [GabRequestController::class, 'renderPanel'])->name("gerenciar-requisicao");
+Route::get('/gerenciar-requisicao/search', [GabRequestController::class, 'patientSearcher'])->name("procurar-paciente");
 Route::get('/gerenciar-requisicao/{id}', [GabController::class, 'getGabs'])->name("gerenciar-unica-req");
 
 // Gabs
@@ -57,6 +60,7 @@ Route::post('/registrar-gab/{id}', [GabController::class, 'registerGab'])->name(
 Route::get("/comments", [CommentController::class, 'res_com_page'])->name("comentarios");
 Route::get("/res-comment/{id}", [CommentController::class, 'res_com'])->name("responder");
 Route::post("/registar-resposta/{id}", [CommentController::class, 'responder'])->name("responderr");
+Route::post('/comment', [CommentController::class, 'comment'])->name("comment");
 
 // Patient
 Route::get('/patient', [PatientController::class, 'patientPage'])->name("patient-page");
@@ -65,3 +69,6 @@ Route::get('/download_pdf/{id}', [GabController::class, 'download'])->name("down
 // Clinica
 Route::get('/clinic', [ClinicController::class, 'clinicPage'])->name("clinic-page");
 Route::get('/clinic/search', [ClinicController::class, 'clinicPageSearcher'])->name("clinic-search-page");
+
+Route::get('/search-clinic', [FinancialController::class, 'searchClinic']);
+Route::get('/search-patient', [FinancialController::class, 'searchPatient']);

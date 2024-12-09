@@ -1,7 +1,7 @@
 @extends('layouts.financial')
 @section('content')
 <div class="dash_page">
-    <h1 class="page_title"><i class="fa-solid fa-building-columns"></i> Registrar Clinica</h1>
+    <h1 class="page_title"><i class="fa-solid fa-building-columns"></i> Registrar Usuario</h1>
 
     <form class="page_form" method="post" action="{{route('cadastrar-clinica')}}">
         @csrf
@@ -25,7 +25,14 @@
             <input type="password" name="password" class="page_input" placeholder="******" required>
         </div>
 
-        <input type="hidden" name="role" value="clinic">
+        <div class="input_box">
+            <label for="">Cargo:</label>
+            <select name="role" class="page_input">
+                <option value="clinic">Clinica</option>
+                <option value="financial">Financeiro</option>
+                <option value="patient">Paciente</option>
+            </select>
+        </div>
 
         <div class="input_box">
             <input type="submit" value="Registrar">

@@ -6,6 +6,11 @@
     <title>Painel do paciente</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            overflow: auto;
+        }
+    </style>
 </head>
 <body>
     <header class="main_header" style="width: 100%;">
@@ -17,10 +22,13 @@
     </header>
 
     <section class="gabs">
+    <br>
+        <br>
+        <br>
         <h1 class="page_title" style="color: #444;margin:15px 0;padding: 10px;">GABs da Clńica: {{auth()->user()->name}}</h1>
-        <form method="GET" action="{{route('clinic-search-page')}}">
-            <input type="text" name="query" placeholder="Digite o nome do paciente" required>
-            <button type="submit">Buscar</button>
+        <form method="GET" class="search-box" action="{{route('clinic-search-page')}}">
+            <input type="text" name="query" placeholder="Digite o nome ou cpf do paciente" required>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         <table class="dash_table">
         <thead class="dash_table_header">

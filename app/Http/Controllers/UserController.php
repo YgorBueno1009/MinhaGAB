@@ -19,14 +19,13 @@ class UserController extends Controller
         return view('pages.login');
     }
 
-    public function register(Request $request)
+    public function register(Request $request, string|null $role = "patient")
     {
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string',
             'cpf_cnpj' => 'required|string',
             'password' => 'required|string',
-            'role'  => 'required|string'
         ]);
 
         User::create([
@@ -35,7 +34,7 @@ class UserController extends Controller
             'phone_number' => $data['name'].'155151515',
             'cpf_cnpj' => $data['cpf_cnpj'],
             'password' => bcrypt($data['password']),
-            'role' => $data['role'],
+            'role' => $role,
         ]);
 
         return redirect()->back();
@@ -73,5 +72,38 @@ class UserController extends Controller
         Auth::logout();
 
         return redirect()->route('login-page');
+    }
+
+    public function editUserPage($id){
+        $user = User::where("id", $id)->first();
+        return view("financial_panel.editarUsuario", ["user"=> $user]);
+    }
+
+    public function editUser(Request $request, $id)
+    {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'cpf_cnpj' => 'required|string|max:20',
+            'password' => 'nullable|string',
+        ]);
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Usuário não encontrado.');
+        }
+
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        $user->cpf_cnpj = $data['cpf_cnpj'];
+
+        if (!empty($data['password'])) {
+            $user->password = bcrypt($data['password']);
+        }
+
+        $user->save();
+
+        return redirect()->route('gerenciar-clinica')->with('success', 'Usuário atualizado com sucesso.');
     }
 }

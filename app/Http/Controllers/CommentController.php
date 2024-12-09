@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Answer;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
     public function res_com_page(){
-        $comments = Comment::all();
-        return view('financial_panel.resComments', ['comments'=>$comments]);
+        $comments = Comment::orderBy("created_at", "desc")->get();
+        $patients = User::all()->keyBy("id");
+        return view('financial_panel.resComments', ['comments'=>$comments, 'patients' => $patients]);
     }
 
     public function res_com($id){
@@ -34,5 +36,19 @@ class CommentController extends Controller
         $comment->update(['status'=>'respondido']);
 
         return redirect()->route('comentarios');
+    }
+
+    public function comment(Request $request){
+        $data = $request->validate([
+            'comment' => 'required|string'
+        ]);
+
+        $comment = Comment::create([
+            'comment' => $data['comment'],
+            'patient_id' => auth()->user()->id,
+            'status'  => 'aguardando'
+        ]);
+
+        return redirect()->back();
     }
 }
