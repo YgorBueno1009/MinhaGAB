@@ -11,14 +11,15 @@
 </head>
 <?php
       #Sei q isso é uma gambiarra da porra, mas q se foda to com sono e preguiça agora
-      $image = getenv('APP_URL')."/assets/fundo.png";
+      $image = getenv('APP_URL')."/assetss/fundo.png";
 ?>
 <body style="background-image: url({{$image}});">
     <header>
         <div class="top">
             <div class="top-logo">
-            <img src="{{getenv('APP_URL')}}/assets/fab-logo.png" width="100px">
+            <img src="{{getenv('APP_URL')}}/assetss/fab-logo.png" width="100px">
             <h1>FORÇA AÉREA BRASILEIRA</h1>
+            <img src="{{getenv('APP_URL')}}/assetss/fab-logo.png" width="100px">
             </div>
             <h2>MinhaGAB</h2>
         </div>
@@ -48,20 +49,20 @@
                 </select>
             </div>
             <div class="input-group">
-                <img src="{{getenv('APP_URL')}}/assets/HFAB.png" width="30px">
+                <img src="{{getenv('APP_URL')}}/assetss/HFAB.png" width="30px">
                 <div class="input-wrapper">
                     <i class="fas fa-user icon"></i> 
                     <input type="text" id="cpf" name="cpf_cnpj" placeholder="Digite seu CPF" required>
                 </div>
-                <img src="{{getenv('APP_URL')}}/assets/CINDACTA.png" width="30px">
+                <img src="{{getenv('APP_URL')}}/assetss/CINDACTA.png" width="30px">
             </div>
             <div class="input-group">
-                <img src="{{getenv('APP_URL')}}/assets/HFAB.png" width="30px">
+                <img src="{{getenv('APP_URL')}}/assetss/HFAB.png" width="30px">
                 <div class="input-wrapper">
                     <i class="fas fa-key icon"></i>
                     <input type="password" id="codigo" name="password" placeholder="Digite seu código de acesso" required>
                 </div>
-                <img src="{{getenv('APP_URL')}}/assets/CINDACTA.png" width="30px">
+                <img src="{{getenv('APP_URL')}}/assetss/CINDACTA.png" width="30px">
             </div>
             <div class="checkbox-group">
                 <label class="custom-checkbox">

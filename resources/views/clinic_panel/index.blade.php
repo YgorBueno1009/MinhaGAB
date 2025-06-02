@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{{getenv('APP_URL')}}/css/financial.css">
+    <link rel="stylesheet" href="{{getenv('APP_URL')}}/csss/financial.css">
     <script defer src="https://kit.fontawesome.com/708b4765cf.js" crossorigin="anonymous"></script>
     <title>Painel do paciente</title>
     <meta charset="UTF-8">
