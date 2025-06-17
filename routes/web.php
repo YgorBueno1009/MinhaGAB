@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\CommentController;
